@@ -5,7 +5,7 @@ import {
   ConnectionSortMapOpts as _ConnectionSortMapOpts,
   ConnectionTArgs,
 } from 'graphql-compose-connection';
-import type { Resolver, ObjectTypeComposer } from 'graphql-compose';
+import { Resolver, ObjectTypeComposer } from 'graphql-compose';
 import { CountResolverOpts, count } from './count';
 import { FindManyResolverOpts, findMany } from './findMany';
 import { getUniqueIndexes, extendByReversedIndexes, IndexT } from '../utils/getIndexesFromModel';

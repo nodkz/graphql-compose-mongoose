@@ -30,7 +30,7 @@ export function createOne<TSource = any, TContext = any, TDoc extends Document =
     throw new Error('First arg for Resolver createOne() should be instance of Mongoose Model.');
   }
 
-  if (!tc || tc.constructor.name !== 'ObjectTypeComposer') {
+  if (!tc || !(tc instanceof ObjectTypeComposer)) {
     throw new Error(
       'Second arg for Resolver createOne() should be instance of ObjectTypeComposer.'
     );
@@ -52,7 +52,7 @@ export function createOne<TSource = any, TContext = any, TDoc extends Document =
     t.setFields({
       ...payloadRecordId(tc, opts?.recordId),
       record: {
-        type: tc,
+        type: tc.getTypeName(),
         description: 'Created document',
       },
     });

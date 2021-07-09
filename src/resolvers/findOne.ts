@@ -1,4 +1,4 @@
-import type { Resolver, ObjectTypeComposer } from 'graphql-compose';
+import { Resolver, ObjectTypeComposer } from 'graphql-compose';
 import type { Model, Document } from 'mongoose';
 import {
   skipHelper,
@@ -53,7 +53,7 @@ export function findOne<TSource = any, TContext = any, TDoc extends Document = a
     throw new Error('First arg for Resolver findOne() should be instance of Mongoose Model.');
   }
 
-  if (!tc || tc.constructor.name !== 'ObjectTypeComposer') {
+  if (!tc || !(tc instanceof ObjectTypeComposer)) {
     throw new Error('Second arg for Resolver findOne() should be instance of ObjectTypeComposer.');
   }
 
@@ -61,7 +61,7 @@ export function findOne<TSource = any, TContext = any, TDoc extends Document = a
   const aliasesReverse = prepareAliasesReverse(model.schema);
 
   return tc.schemaComposer.createResolver<TSource, TArgs>({
-    type: tc,
+    type: tc.getTypeName(),
     name: 'findOne',
     kind: 'query',
     args: {
